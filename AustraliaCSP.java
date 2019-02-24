@@ -44,7 +44,12 @@ public class AustraliaCSP {
 		amap.cons1.add("SA");
 		amap.cons2.add("V");
 		
-			
+		Solver solve= new Solver();
+		amap=solve.backtrack(amap);
+		for(int i=0; i<amap.var.length; i++){
+			System.out.println(amap.var[i].name + "=" + amap.var[i].assignemnt);
+		}
+		
 		
 		
 	}
