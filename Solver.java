@@ -37,6 +37,38 @@ public class Solver {
 		
 	}
 	
+	public boolean Consistent(CSP c, int i, String value) {
+		c.var[i].assignemnt=value;
+		return isConsistent(c);
+				
+	}
 	
+	public CSP backtrack(CSP c) {
+		if(isComplete(c)) {
+			return c;
+		}
+		int index=0;
+		for(int i=0 ; i<c.var.length; i++) {
+			if(c.var[i].assignemnt==null) {
+				index = i;
+				break;
+			}
+		}
+		
+		for(String values: c.var[index].dm) {
+			if(Consistent(c, index, values)) {
+				c.var[index].assignemnt=values;
+				CSP result = backtrack(c);
+				if(result!=null) {
+					return result;
+				}
+			}
+			
+			
+		}
+		
+		return null;
+		
+	}
 	
 }
