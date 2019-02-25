@@ -8,9 +8,9 @@ public class AustraliaCSP {
 		
 		//domain
 		HashSet<String> domain = new HashSet();
+		domain.add("RED");
 		domain.add("GREEN");
 		domain.add("BLUE");
-		domain.add("RED");
 		
 		//variables
 		Variables WA = new Variables("WA", null, domain);
