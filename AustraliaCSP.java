@@ -6,11 +6,13 @@ public class AustraliaCSP {
 		
 		CSP amap = new CSP();
 		
+		//domain
 		HashSet<String> domain = new HashSet();
-		domain.add("RED");
 		domain.add("GREEN");
 		domain.add("BLUE");
+		domain.add("RED");
 		
+		//variables
 		Variables WA = new Variables("WA", null, domain);
 		Variables Q = new Variables("Q", null, domain);
 		Variables NSW = new Variables("NSW", null, domain);
@@ -20,6 +22,8 @@ public class AustraliaCSP {
 		Variables SA = new Variables("SA", null, domain);
 		
 		Variables [] list = {WA, NT, Q, NSW, V, SA, T};
+		
+		//constraints
 		amap.var=list;
 		amap.cons1.add("WA");
 		amap.cons2.add("NT");
@@ -46,19 +50,10 @@ public class AustraliaCSP {
 		
 		Solver solve= new Solver();
 		amap=solve.backtrack(amap);
-		for(int i=0; i<amap.var.length; i++){
-			System.out.println(amap.var[i].name + "=" + amap.var[i].assignemnt);
+		for(int i=0; i<amap.var.length; i++){//print result
+			System.out.println(amap.var[i].name + "=" + amap.var[i].assimt);
 		}
 		
-		
-		
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 }
