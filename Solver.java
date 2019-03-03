@@ -22,9 +22,11 @@ public class Solver {
 		return true;	
 
 	}
+	
+	
 	public boolean Consistent(CSP c, int i, String value) {//c, position, domain
 		c.var[i].assign=value;//set assignment to this value (domain)
-		return isConsistent(c);
+		return isConsistentMap(c);
 
 	}
 
@@ -32,19 +34,19 @@ public class Solver {
 		c.var[i].value=v;//set assignment to this value (domain)
 		boolean consistent1 = isConsistentJob(c);
 		boolean consistent2 = isConsistentJob2(c);
-		if(isConsistentJob(c)==false) {
+		if(consistent1==false) {
 			return false;
 		}
-		if(isConsistentJob2(c)==false) {
+		if(consistent2==false) {
 			return false;
 		}
-		else {
+		else if(consistent1==true || consistent2==true){
 			return true;
 		}
-
+		return false;
 	}
 	//check consistent for Map
-	public static boolean isConsistent(CSP c) {
+	public static boolean isConsistentMap(CSP c) {
 
 		for(int i=0; i<c.cons1.size(); i++) {//go through all pairs of consistent
 			String city1= c.cons1.get(i);
@@ -76,17 +78,16 @@ public class Solver {
 	//check first consistent for job
 	public boolean isConsistentJob(CSP c) {
 
-		for(int i=0; i<c.cons3.size(); i++) {
-			String leftside = c.cons3.get(i);
-			String rightside = c.cons4.get(i);
-
+		for(int i=0; i<c.cons1.size(); i++) {
+			String leftside = c.cons1.get(i);
+			String rightside = c.cons2.get(i);
 			int inspection = 0;
 			int val1 = 0;
 			int val2 = 0;
 
 			for(int j=0; j<c.var.length; j++) {
 
-				if(c.var[j].name.equals("Inspection")) {
+				if(c.var[j].name.equals("Inspect")) {
 					inspection= c.var[j].value;			
 				}
 				if(c.var[j].name.equals(leftside)) {
@@ -96,18 +97,18 @@ public class Solver {
 						val1 = c.var[j].value + 1;
 					}if (leftside.equals("NutsRF") || leftside.equals("NutsLF")  || leftside.equals("NutsRB")  || leftside.equals("NutsLB") ) {
 						val1 = c.var[j].value + 2;	
-					}else {
+					}else if(leftside.equals("CapsRF") || leftside.equals("CapsLF")  || leftside.equals("CapsRB")  || leftside.equals("CapsLB")) {
 						val1 = c.var[j].value;
 					}
 
 				}
-				if(c.var[j].name==rightside) {
+				if(c.var[j].name.equals(rightside)) {
 					val2 = c.var[j].value;
 				}		
 
 			}
 
-			if((val1 > val2 && val1!=0 && val2 !=0) ||  (val1>inspection && val1!=0 && inspection!=0) ) {
+			if(( (val1 > val2) && val1!=0 && val2 !=0) ||  ( (val1>inspection) && val1!=0 && inspection!=0) ) {
 				return false;
 
 			}
@@ -127,16 +128,15 @@ public class Solver {
 			int val2=0;
 			for(int j= 0; j<c.var.length; j++) {
 				if (c.var[j].name.equals(dis1)) {
-					val1 = c.var[j].value + 10;
-				}if(c.var[j].name.equals(dis2)) {
+					val1 = c.var[j].value;
+				}if(c.var[j].name.equals(dis2)) {		
 					val2 = c.var[j].value;
 				}		
 			}
-
-			if((val1 > val2 || val2+10>val2) && val1!=0 && val2!=0) {
+			if(val1+10>val2 && val1!=0 && val2!=0) {
 				return false;
 			}
-
+			
 		}	
 
 		return true;
@@ -191,7 +191,6 @@ public class Solver {
 		for(Integer values: c.var[index].dmj) {
 			
 			if(Consistent(c, index, values)) {
-				
 				c.var[index].value=values;
 				CSP result = backtrack(c,0);
 				if(result!=null) {
