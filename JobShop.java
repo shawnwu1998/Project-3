@@ -24,7 +24,9 @@ public class JobShop {
 		Variables CapsLB = new Variables("CapsLB", 0, domain);
 		Variables Inspect = new Variables("Inspect", 0, domain);
 		Variables [] list = {AxleF, AxleB, WheelRF, WheelLF, WheelRB, WheelLB, NutsRF, NutsLF, NutsRB, NutsLB, CapsRF, CapsLF, CapsRB, CapsLB, Inspect};
+		
 		job.var=list;
+		
 		job.cons1.add("AxleF");
 		job.cons2.add("WheelRF"); 
 		job.cons1.add("AxleB");
@@ -51,6 +53,10 @@ public class JobShop {
 		job.cons2.add("CapsRB");
 		job.cons1.add("NutsLB");
 		job.cons2.add("CapsLB");
+		
+		job.cons3.add("AxleF");
+		job.cons4.add("AxleB");
+	
 		
 		Solver solve = new Solver();
 		job=solve.backtrack(job, 0);
