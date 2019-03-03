@@ -1,8 +1,9 @@
 public class Solver {
 
 
+
 	public CSP backtrack(CSP c) {
-		if(isComplete(c)) {
+		if(Assignment.isComplete(c)) {
 			return c;
 		}
 
@@ -18,7 +19,7 @@ public class Solver {
 
 		//set value to the var's domain when the assignment is consistent
 		for(String values: c.var[index].dm) {
-			if(Consistent(c, index, values)) {
+			if(Assignment.Consistent(c, index, values)) {
 				c.var[index].assign=values;
 				CSP result = backtrack(c);
 				if(result!=null) {
@@ -32,7 +33,7 @@ public class Solver {
 	}
 
 	public CSP backtrack(CSP c, int value) {
-		if(isComplete(c,0)) {
+		if(Assignment.isComplete(c,0)) {
 			return c;
 		}
 		int index=0;
@@ -45,7 +46,8 @@ public class Solver {
 
 		for(Integer values: c.var[index].dmj) {
 			
-			if(Consistent(c, index, values)) {
+			if(Assignment.Consistent(c, index, values)) {
+				
 				c.var[index].value=values;
 				CSP result = backtrack(c,0);
 				if(result!=null) {
