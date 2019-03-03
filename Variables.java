@@ -16,7 +16,7 @@ public class Variables {
 	
 	public Variables(String name, int value, HashSet<Integer> domain) {
 		this.name=name;
-		this.value=value;
+		this.value=0;
 		this.dmj=domain;
 		
 		
