@@ -1,6 +1,6 @@
 import java.util.HashSet;
 
-public class JobShop {
+public class JobShopCSP {
 
 	public static void jobshop() {
 		CSP job = new CSP();
