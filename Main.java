@@ -20,10 +20,15 @@ public class Main {
 				JobShop job = new JobShop();
 				job.jobshop();
 			}
+			if(x==3) {
+				System.out.println("Queens");
+				NQueensCSP queens = new NQueensCSP();
+				queens.nqueens();
+			}
 			if(x==0) {
 				break;
 			}
 		}
 	}
 
-}
+} 
