@@ -1,0 +1,39 @@
+import java.util.HashSet;
+import java.util.Scanner;
+
+public class NQueensCSP {
+	public static void nqueens() {
+		CSP nqueen = new CSP();
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Please enter your board size n: ");
+		int n = scanner.nextInt();
+		HashSet domain = new HashSet();
+		for(int i=1; i<=n; i++){
+			domain.add(""+i);
+		}
+	
+		Variables[] list = {};
+
+		for(int i=0; i<n; i++){
+			Variables var = new Variables(""+(i+1), null, domain);
+			Variables[] temp = new Variables[(list.length)+1];
+			for(int j=0; j<list.length; j++){
+				temp[j] = list[j];
+			}
+			temp[list.length] = var;
+			list = temp;
+		}
+		
+		nqueen.var = list;
+		Solver solve = new Solver();
+		nqueen = solve.backtrackn(nqueen);
+		if(nqueen==null){ 
+			System.out.println("This board size can't lead to complete and consistent solutions");
+		}
+		else{
+			for(int i=0; i<n; i++){
+				System.out.println("column number" + nqueen.var[i].name + "=" + nqueen.var[i].assign);
+			}
+		}
+	}
+}
